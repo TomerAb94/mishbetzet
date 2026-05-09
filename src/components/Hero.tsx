@@ -38,10 +38,13 @@ export default function Hero() {
   const [index, setIndex] = useState(1); // starts at real slide 0 (offset by 1 clone)
   const [animated, setAnimated] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const busy = useRef(false); // true while a transition is in flight
 
   const startTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
+      if (busy.current) return;
+      busy.current = true;
       setAnimated(true);
       setIndex((prev) => prev + 1);
     }, INTERVAL);
@@ -60,6 +63,8 @@ export default function Hero() {
     } else if (index === extended.length - 1) {
       setAnimated(false);
       setIndex(1); // snap to real first
+    } else {
+      busy.current = false;
     }
   };
 
@@ -67,13 +72,18 @@ export default function Hero() {
   useEffect(() => {
     if (!animated) {
       const id = requestAnimationFrame(() =>
-        requestAnimationFrame(() => setAnimated(true))
+        requestAnimationFrame(() => {
+          setAnimated(true);
+          busy.current = false;
+        })
       );
       return () => cancelAnimationFrame(id);
     }
   }, [animated]);
 
   const go = (newIndex: number) => {
+    if (busy.current) return;
+    busy.current = true;
     setAnimated(true);
     setIndex(newIndex);
     startTimer();
