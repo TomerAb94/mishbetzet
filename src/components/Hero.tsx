@@ -134,19 +134,19 @@ export default function Hero() {
         ))}
       </ul>
 
-      {/* Right arrow → previous slide (RTL) */}
+      {/* Right arrow → next slide */}
       <button
-        onClick={() => go(index - 1)}
-        aria-label="הקודם"
+        onClick={() => go(index + 1)}
+        aria-label="הבא"
         className="absolute top-1/2 -translate-y-1/2 right-4 p-2 hover:opacity-60 transition-opacity"
       >
         <ChevronRight size={40} className="text-[#1A1A1A]" />
       </button>
 
-      {/* Left arrow → next slide (RTL) */}
+      {/* Left arrow → previous slide */}
       <button
-        onClick={() => go(index + 1)}
-        aria-label="הבא"
+        onClick={() => go(index - 1)}
+        aria-label="הקודם"
         className="absolute top-1/2 -translate-y-1/2 left-4 p-2 hover:opacity-60 transition-opacity"
       >
         <ChevronLeft size={40} className="text-[#1A1A1A]" />
