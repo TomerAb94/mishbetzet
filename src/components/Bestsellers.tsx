@@ -51,8 +51,8 @@ const books: Book[] = [
 
 export default function Bestsellers() {
   return (
-    <section className="bg-[#F5F5F5] py-16 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-[#F5F5F5] px-6 flex flex-col justify-center" style={{ minHeight: 'calc(100vh - 64px)' }}>
+      <div className="max-w-6xl mx-auto w-full">
         {/* Section header */}
         <div className="mb-10">
           <span className="text-xs font-semibold text-[#16A34A] tracking-widest uppercase">
@@ -94,7 +94,7 @@ export default function Bestsellers() {
                   {book.title}
                 </h3>
                 <p className="text-[#888888] text-xs mb-5 flex-1">{book.subtitle}</p>
-                <button className="w-full bg-[#16A34A] text-white text-sm font-semibold py-2.5 rounded-md hover:bg-[#15803D] transition-colors flex items-center justify-center gap-2">
+                <button className="w-full bg-[#16A34A] text-white text-sm font-semibold py-2.5 rounded-[30px] hover:bg-[#15803D] transition-colors flex items-center justify-center gap-2">
                   <ShoppingCart size={15} />
                   רכישה מהירה
                 </button>

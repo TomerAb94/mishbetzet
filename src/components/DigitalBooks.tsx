@@ -2,7 +2,7 @@ import { Tablet } from 'lucide-react';
 
 export default function DigitalBooks() {
   return (
-    <section className="bg-white py-20 px-6">
+    <section className="bg-white px-6 flex flex-col justify-center" style={{ minHeight: 'calc(100vh - 64px)' }}>
       <div className="max-w-xl mx-auto text-center">
         {/* Icon */}
         <div className="inline-flex items-center justify-center w-16 h-16 bg-[#F0FDF4] rounded-full mb-6">
@@ -24,7 +24,7 @@ export default function DigitalBooks() {
 
         <button
           disabled
-          className="bg-[#E5E5E5] text-[#AAAAAA] font-semibold px-8 py-3 rounded-md cursor-not-allowed text-sm"
+          className="bg-[#E5E5E5] text-[#AAAAAA] font-semibold px-8 py-3 rounded-[30px] cursor-not-allowed text-sm"
         >
           כניסה לספרים הדיגיטליים
         </button>
