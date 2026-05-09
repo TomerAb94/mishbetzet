@@ -118,16 +118,16 @@ export default function Hero() {
             }}
           >
             <div className="max-w-4xl mx-auto w-full">
-              <h1 className="text-5xl font-black text-[#1A1A1A] leading-tight tracking-tight mb-4">
+              <h1 className="text-[60px] font-bold text-[#1A1A1A] leading-tight tracking-tight mb-4">
                 {slide.h1}
               </h1>
               {slide.subAs === 'h3' ? (
-                <h3 className="text-xl text-[#555555] mb-10">{slide.sub}</h3>
+                <h3 className="text-[33px] font-bold text-[#555555] mb-10">{slide.sub}</h3>
               ) : (
-                <h2 className="text-2xl font-semibold text-[#555555] mb-10">{slide.sub}</h2>
+                <h2 className="text-[33px] font-bold text-[#555555] mb-10">{slide.sub}</h2>
               )}
               <button className="bg-[#16A34A] text-white font-semibold px-6 py-3 rounded-[30px] hover:bg-[#15803D] transition-colors text-sm">
-                {slide.btn}
+                <span className="text-[15px]">{slide.btn}</span>
               </button>
             </div>
           </li>
@@ -140,7 +140,7 @@ export default function Hero() {
         aria-label="הבא"
         className="absolute top-1/2 -translate-y-1/2 right-4 p-2 hover:opacity-60 transition-opacity"
       >
-        <ChevronRight size={40} className="text-[#1A1A1A]" />
+        <ChevronRight size={52} strokeWidth={1.2} className="text-[#1A1A1A]" />
       </button>
 
       {/* Left arrow → previous slide */}
@@ -149,7 +149,7 @@ export default function Hero() {
         aria-label="הקודם"
         className="absolute top-1/2 -translate-y-1/2 left-4 p-2 hover:opacity-60 transition-opacity"
       >
-        <ChevronLeft size={40} className="text-[#1A1A1A]" />
+        <ChevronLeft size={52} strokeWidth={1.2} className="text-[#1A1A1A]" />
       </button>
 
       {/* Dot indicators */}

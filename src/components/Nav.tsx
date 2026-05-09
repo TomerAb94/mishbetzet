@@ -64,7 +64,7 @@ export default function Nav() {
         </div>
 
         {/* Lower bar — desktop only */}
-        <div className="hidden md:block bg-[#1A1A1A] h-16">
+        <div className="hidden md:block bg-[#1A1A1A] h-16 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
           <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-full overflow-x-auto">
             {secondaryLinks.map((link) => (
               <a
@@ -88,18 +88,13 @@ export default function Nav() {
               <span className="text-2xl font-black text-[#1A1A1A] tracking-tight">משבצת</span>
               <BookOpen size={22} className="text-[#16A34A]" />
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              aria-label="סגור"
-              className="p-1 text-[#1A1A1A]"
-            >
+            <button onClick={() => setOpen(false)} aria-label="סגור" className="p-1 text-[#1A1A1A]">
               <X size={26} />
             </button>
           </div>
 
           {/* Links */}
           <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-1">
-            {/* Tabs */}
             <p className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-3">ראשי</p>
             {tabs.map((tab) => (
               <button

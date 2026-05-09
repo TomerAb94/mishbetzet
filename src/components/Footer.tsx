@@ -19,21 +19,13 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="text-right">
-            <h4 className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-4">
-              צרו קשר
-            </h4>
+            <h4 className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-4">צרו קשר</h4>
             <div className="space-y-3">
-              <a
-                href="tel:04-8401003"
-                className="flex items-center gap-2 justify-end text-sm text-[#CCCCCC] hover:text-[#16A34A] transition-colors"
-              >
+              <a href="tel:04-8401003" className="flex items-center gap-2 justify-end text-sm text-[#CCCCCC] hover:text-[#16A34A] transition-colors">
                 <span>04-8401003</span>
                 <Phone size={15} className="text-[#16A34A] shrink-0" />
               </a>
-              <a
-                href="mailto:info@mishbetzet.co.il"
-                className="flex items-center gap-2 justify-end text-sm text-[#CCCCCC] hover:text-[#16A34A] transition-colors"
-              >
+              <a href="mailto:info@mishbetzet.co.il" className="flex items-center gap-2 justify-end text-sm text-[#CCCCCC] hover:text-[#16A34A] transition-colors">
                 <span>info@mishbetzet.co.il</span>
                 <Mail size={15} className="text-[#16A34A] shrink-0" />
               </a>
@@ -42,25 +34,11 @@ export default function Footer() {
 
           {/* About */}
           <div className="text-right">
-            <h4 className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-4">
-              אודות
-            </h4>
+            <h4 className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-4">אודות</h4>
             <ul className="space-y-2 text-sm text-[#AAAAAA]">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  אודות משבצת
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  הספרים שלנו
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  צרו קשר
-                </a>
-              </li>
+              <li><a href="#" className="hover:text-white transition-colors">אודות משבצת</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">הספרים שלנו</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">צרו קשר</a></li>
             </ul>
           </div>
         </div>

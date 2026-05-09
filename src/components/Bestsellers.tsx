@@ -70,15 +70,9 @@ export default function Bestsellers() {
               className="bg-white border border-[#E5E5E5] rounded-lg overflow-hidden flex flex-col"
             >
               {/* Cover */}
-              <div
-                className="h-44 flex items-center justify-center"
-                style={{ backgroundColor: book.coverBg }}
-              >
+              <div className="h-44 flex items-center justify-center" style={{ backgroundColor: book.coverBg }}>
                 <div className="text-center">
-                  <div
-                    className="text-5xl font-black leading-none"
-                    style={{ color: book.coverText }}
-                  >
+                  <div className="text-5xl font-black leading-none" style={{ color: book.coverText }}>
                     {book.label}
                   </div>
                   <div className="text-xs text-[#888888] mt-2 font-medium">משבצת</div>
@@ -90,9 +84,7 @@ export default function Bestsellers() {
                 <span className="inline-block text-xs bg-[#F0FDF4] text-[#16A34A] border border-[#BBF7D0] rounded-full px-2 py-0.5 mb-3 self-start">
                   {book.grade}
                 </span>
-                <h3 className="font-bold text-[#1A1A1A] text-base mb-1 leading-snug">
-                  {book.title}
-                </h3>
+                <h3 className="font-bold text-[#1A1A1A] text-base mb-1 leading-snug">{book.title}</h3>
                 <p className="text-[#888888] text-xs mb-5 flex-1">{book.subtitle}</p>
                 <button className="w-full bg-[#16A34A] text-white text-sm font-semibold py-2.5 rounded-[30px] hover:bg-[#15803D] transition-colors flex items-center justify-center gap-2">
                   <ShoppingCart size={15} />
