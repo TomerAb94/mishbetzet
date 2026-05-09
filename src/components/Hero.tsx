@@ -32,7 +32,7 @@ const slides = [
 const extended = [slides[slides.length - 1], ...slides, slides[0]];
 
 const INTERVAL = 5000;
-const NAV_H = 64; // px — matches Nav h-16
+const NAV_H = 128; // px — upper bar h-16 (64) + lower bar h-16 (64)
 
 export default function Hero() {
   const [index, setIndex] = useState(1); // starts at real slide 0 (offset by 1 clone)
@@ -138,18 +138,18 @@ export default function Hero() {
       <button
         onClick={() => go(index - 1)}
         aria-label="הקודם"
-        className="absolute top-1/2 -translate-y-1/2 right-4 bg-white border border-[#E5E5E5] rounded-full p-2 hover:bg-[#F5F5F5] transition-colors"
+        className="absolute top-1/2 -translate-y-1/2 right-4 p-2 hover:opacity-60 transition-opacity"
       >
-        <ChevronRight size={20} className="text-[#1A1A1A]" />
+        <ChevronRight size={40} className="text-[#1A1A1A]" />
       </button>
 
       {/* Left arrow → next slide (RTL) */}
       <button
         onClick={() => go(index + 1)}
         aria-label="הבא"
-        className="absolute top-1/2 -translate-y-1/2 left-4 bg-white border border-[#E5E5E5] rounded-full p-2 hover:bg-[#F5F5F5] transition-colors"
+        className="absolute top-1/2 -translate-y-1/2 left-4 p-2 hover:opacity-60 transition-opacity"
       >
-        <ChevronLeft size={20} className="text-[#1A1A1A]" />
+        <ChevronLeft size={40} className="text-[#1A1A1A]" />
       </button>
 
       {/* Dot indicators */}
