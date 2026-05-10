@@ -1,44 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import type { HeroSlide } from '../../models/slide';
+import { MOCK_SLIDES } from '../../models/mock/slides.mock';
 
-const slides = [
-  {
-    id: 1,
-    h1: 'הספרים שיכינו אותך לבגרות',
-    sub: 'משבצת - הדרך הבטוחה לבגרות בהצטיינות',
-    subAs: 'h3' as const,
-    btn: 'לרשימת הספרים ›',
-    bg: '#FFFFFF',
-  },
-  {
-    id: 2,
-    h1: 'כל הספרים מאושרים ע"י משרד החינוך',
-    sub: 'הזמינו את הספרים החדשים ביותר',
-    subAs: 'h2' as const,
-    btn: 'צרו קשר להזמנה ›',
-    bg: '#F0FDF4',
-  },
-  {
-    id: 3,
-    h1: 'לומדים בדיגיטל',
-    sub: 'הספרים שלנו זמינים בגרסא דיגיטלית',
-    subAs: 'h2' as const,
-    btn: 'לצפייה ›',
-    bg: '#EFF6FF',
-  },
-];
-
-// Cloned track: [last, ...slides, first] — enables seamless infinite loop
-const extended = [slides[slides.length - 1], ...slides, slides[0]];
+const extended = [MOCK_SLIDES[MOCK_SLIDES.length - 1], ...MOCK_SLIDES, MOCK_SLIDES[0]];
 
 const INTERVAL = 5000;
-const NAV_H = 128; // px — upper bar h-16 (64) + lower bar h-16 (64)
+const NAV_H = 128;
 
 export default function Hero() {
-  const [index, setIndex] = useState(1); // starts at real slide 0 (offset by 1 clone)
+  const [index, setIndex] = useState(1);
   const [animated, setAnimated] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const busy = useRef(false); // true while a transition is in flight
+  const busy = useRef(false);
+  const navigate = useNavigate();
 
   const startTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -55,20 +31,18 @@ export default function Hero() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, []);
 
-  // After landing on a clone, instantly snap to the real equivalent slide
   const handleTransitionEnd = () => {
     if (index === 0) {
       setAnimated(false);
-      setIndex(slides.length); // snap to real last
+      setIndex(MOCK_SLIDES.length);
     } else if (index === extended.length - 1) {
       setAnimated(false);
-      setIndex(1); // snap to real first
+      setIndex(1);
     } else {
       busy.current = false;
     }
   };
 
-  // Re-enable animation one frame after the snap (so next move animates)
   useEffect(() => {
     if (!animated) {
       const id = requestAnimationFrame(() =>
@@ -89,13 +63,17 @@ export default function Hero() {
     startTimer();
   };
 
-  // Which dot to highlight (0-based real index)
   const dotActive =
     index === 0
-      ? slides.length - 1
+      ? MOCK_SLIDES.length - 1
       : index === extended.length - 1
       ? 0
       : index - 1;
+
+  const handleSlideBtn = (slide: HeroSlide) => {
+    if (slide.id === 1 || slide.id === 2) navigate('/catalog');
+    else navigate('/catalog');
+  };
 
   return (
     <section className="relative overflow-hidden" dir="ltr">
@@ -126,7 +104,10 @@ export default function Hero() {
               ) : (
                 <h2 className="text-[33px] font-bold text-[#555555] mb-10">{slide.sub}</h2>
               )}
-              <button className="bg-[#16A34A] text-white font-semibold px-6 py-3 rounded-[30px] hover:bg-[#15803D] transition-colors text-sm">
+              <button
+                onClick={() => handleSlideBtn(slide)}
+                className="bg-[#16A34A] text-white font-semibold px-6 py-3 rounded-[30px] hover:bg-[#15803D] transition-colors text-sm"
+              >
                 <span className="text-[15px]">{slide.btn}</span>
               </button>
             </div>
@@ -134,7 +115,6 @@ export default function Hero() {
         ))}
       </ul>
 
-      {/* Right arrow → next slide */}
       <button
         onClick={() => go(index + 1)}
         aria-label="הבא"
@@ -143,7 +123,6 @@ export default function Hero() {
         <ChevronRight size={52} strokeWidth={1.2} className="text-[#1A1A1A]" />
       </button>
 
-      {/* Left arrow → previous slide */}
       <button
         onClick={() => go(index - 1)}
         aria-label="הקודם"
@@ -152,9 +131,8 @@ export default function Hero() {
         <ChevronLeft size={52} strokeWidth={1.2} className="text-[#1A1A1A]" />
       </button>
 
-      {/* Dot indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-        {slides.map((_, i) => (
+        {MOCK_SLIDES.map((_, i) => (
           <button
             key={i}
             onClick={() => go(i + 1)}

@@ -1,4 +1,5 @@
 import { Phone, Mail, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -7,10 +8,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 justify-end mb-3">
+            <Link to="/" className="flex items-center gap-2 justify-end mb-3">
               <span className="text-xl font-black">משבצת</span>
               <BookOpen size={20} className="text-[#16A34A]" />
-            </div>
+            </Link>
             <p className="text-[#888888] text-sm leading-relaxed text-right">
               סדרת ספרי מתמטיקה לבית הספר היסודי.
               מאושרת ומוכחת בכיתות ברחבי ישראל.
@@ -36,9 +37,9 @@ export default function Footer() {
           <div className="text-right">
             <h4 className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-4">אודות</h4>
             <ul className="space-y-2 text-sm text-[#AAAAAA]">
-              <li><a href="#" className="hover:text-white transition-colors">אודות משבצת</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">הספרים שלנו</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">צרו קשר</a></li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">אודות משבצת</Link></li>
+              <li><Link to="/catalog" className="hover:text-white transition-colors">הספרים שלנו</Link></li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">צרו קשר</Link></li>
             </ul>
           </div>
         </div>
