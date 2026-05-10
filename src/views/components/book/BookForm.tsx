@@ -1,11 +1,17 @@
-import type { BookFormData, Grade, Category } from '../../../models/book';
+import type { BookFormData, Grade, Category, Level } from '../../../models/book';
 
-const GRADES: Grade[] = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ז׳", "ח׳", "ט׳"];
+const GRADES: Grade[] = [
+  "א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳",
+  "ז׳", "ח׳", "ט׳",
+  "י׳", "יא׳", "יב׳",
+];
 const CATEGORIES: Category[] = ["יסודי", "חטיבה", "תיכון", "דיגיטלי"];
+const LEVELS: Level[] = ["בסיסי", "מורחב"];
 
 const EMPTY: BookFormData = {
   title: '',
   subtitle: '',
+  description: '',
   grade: "א׳",
   category: 'יסודי',
   coverBg: '#DBEAFE',
@@ -14,7 +20,14 @@ const EMPTY: BookFormData = {
   price: 89,
   isDigital: false,
   isAvailable: true,
-  description: '',
+  imgUrl: '',
+  examCode: '',
+  units: '',
+  level: undefined,
+  author: '',
+  publishYear: new Date().getFullYear(),
+  pages: 150,
+  tags: [],
 };
 
 interface Props {
@@ -34,9 +47,11 @@ export default function BookForm({ initialData, onSubmit, onCancel, submitting }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const tagsRaw = (fd.get('tags') as string).trim();
     const data: BookFormData = {
       title: fd.get('title') as string,
       subtitle: fd.get('subtitle') as string,
+      description: fd.get('description') as string,
       grade: fd.get('grade') as Grade,
       category: fd.get('category') as Category,
       coverBg: fd.get('coverBg') as string,
@@ -45,22 +60,35 @@ export default function BookForm({ initialData, onSubmit, onCancel, submitting }
       price: Number(fd.get('price')),
       isDigital: fd.get('isDigital') === 'true',
       isAvailable: fd.get('isAvailable') === 'true',
-      description: fd.get('description') as string,
+      imgUrl: (fd.get('imgUrl') as string) || undefined,
+      examCode: (fd.get('examCode') as string) || undefined,
+      units: (fd.get('units') as string) || undefined,
+      level: (fd.get('level') as Level) || undefined,
+      author: (fd.get('author') as string) || undefined,
+      publishYear: Number(fd.get('publishYear')) || undefined,
+      pages: Number(fd.get('pages')) || undefined,
+      tags: tagsRaw ? tagsRaw.split(',').map((t) => t.trim()).filter(Boolean) : undefined,
     };
     onSubmit(data);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} className="space-y-3 max-h-[70vh] overflow-y-auto pl-1">
+      <div className="grid grid-cols-2 gap-3">
+
         <div className="col-span-2">
           <label className={labelCls}>שם הספר</label>
-          <input name="title" defaultValue={defaults.title} required className={inputCls} placeholder="משבצת — כיתה א׳" />
+          <input name="title" defaultValue={defaults.title} required className={inputCls} />
         </div>
 
         <div className="col-span-2">
           <label className={labelCls}>תת-כותרת</label>
-          <input name="subtitle" defaultValue={defaults.subtitle} required className={inputCls} placeholder="חלק א׳ · תרגול וגילוי" />
+          <input name="subtitle" defaultValue={defaults.subtitle} required className={inputCls} />
+        </div>
+
+        <div className="col-span-2">
+          <label className={labelCls}>תיאור</label>
+          <textarea name="description" defaultValue={defaults.description} rows={3} className={inputCls} />
         </div>
 
         <div>
@@ -77,6 +105,54 @@ export default function BookForm({ initialData, onSubmit, onCancel, submitting }
           </select>
         </div>
 
+        <div className="col-span-2">
+          <label className={labelCls}>קישור לתמונת כריכה (URL)</label>
+          <input name="imgUrl" defaultValue={defaults.imgUrl ?? ''} className={inputCls} placeholder="https://..." />
+        </div>
+
+        <div>
+          <label className={labelCls}>שאלון (לתיכון)</label>
+          <input name="examCode" defaultValue={defaults.examCode ?? ''} className={inputCls} placeholder="שאלון 581" />
+        </div>
+
+        <div>
+          <label className={labelCls}>יחידות לימוד</label>
+          <input name="units" defaultValue={defaults.units ?? ''} className={inputCls} placeholder="4 יחידות לימוד" />
+        </div>
+
+        <div>
+          <label className={labelCls}>רמה</label>
+          <select name="level" defaultValue={defaults.level ?? ''} className={inputCls}>
+            <option value="">—</option>
+            {LEVELS.map((l) => <option key={l} value={l}>{l}</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label className={labelCls}>מחיר (₪)</label>
+          <input name="price" type="number" min={0} defaultValue={defaults.price} required className={inputCls} />
+        </div>
+
+        <div>
+          <label className={labelCls}>מחבר</label>
+          <input name="author" defaultValue={defaults.author ?? ''} className={inputCls} />
+        </div>
+
+        <div>
+          <label className={labelCls}>שנת הוצאה</label>
+          <input name="publishYear" type="number" defaultValue={defaults.publishYear} className={inputCls} />
+        </div>
+
+        <div>
+          <label className={labelCls}>מספר עמודים</label>
+          <input name="pages" type="number" defaultValue={defaults.pages} className={inputCls} />
+        </div>
+
+        <div>
+          <label className={labelCls}>תווית כריכה</label>
+          <input name="label" defaultValue={defaults.label} required className={inputCls} />
+        </div>
+
         <div>
           <label className={labelCls}>צבע רקע כריכה</label>
           <input name="coverBg" type="color" defaultValue={defaults.coverBg} className="w-full h-9 border border-[#E5E5E5] rounded-lg cursor-pointer" />
@@ -85,16 +161,6 @@ export default function BookForm({ initialData, onSubmit, onCancel, submitting }
         <div>
           <label className={labelCls}>צבע טקסט כריכה</label>
           <input name="coverText" type="color" defaultValue={defaults.coverText} className="w-full h-9 border border-[#E5E5E5] rounded-lg cursor-pointer" />
-        </div>
-
-        <div>
-          <label className={labelCls}>תווית כריכה</label>
-          <input name="label" defaultValue={defaults.label} required className={inputCls} placeholder="א׳" />
-        </div>
-
-        <div>
-          <label className={labelCls}>מחיר (₪)</label>
-          <input name="price" type="number" min={0} defaultValue={defaults.price} required className={inputCls} />
         </div>
 
         <div>
@@ -114,8 +180,8 @@ export default function BookForm({ initialData, onSubmit, onCancel, submitting }
         </div>
 
         <div className="col-span-2">
-          <label className={labelCls}>תיאור (אופציונלי)</label>
-          <textarea name="description" defaultValue={defaults.description} rows={3} className={inputCls} placeholder="תיאור קצר של הספר..." />
+          <label className={labelCls}>תגיות (מופרדות בפסיקים)</label>
+          <input name="tags" defaultValue={defaults.tags?.join(', ') ?? ''} className={inputCls} placeholder="אלגברה, פונקציות, בגרות" />
         </div>
       </div>
 
